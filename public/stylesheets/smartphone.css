@@ -17,3 +17,5 @@ body{
 footer, input{
 	font-size:large;
 } 
+
+.pregunta_list{font-size:14px; text-align: left;} 
