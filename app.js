@@ -44,6 +44,24 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(function(req, res, next) {
+	if(req.session.user){
+		if(!req.session.tiempo){
+			req.session.tiempo=(new Date()).getTime();
+		}
+		else{
+			//if((new Date()).getTime()-req.session.tiempo > 30000){ // 30 segundos
+			if((new Date()).getTime()-req.session.tiempo > 120000){ // 2 minutos
+				delete req.session.user;
+				delete req.session.tiempo;
+			}
+			else{
+				req.session.tiempo=(new Date()).getTime();
+			}
+		}
+	}
+	next();
+});
 
 app.use('/', routes);
 //app.use('/users', users);
